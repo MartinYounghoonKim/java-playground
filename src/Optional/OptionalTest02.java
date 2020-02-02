@@ -6,11 +6,18 @@ public class OptionalTest02 {
     public static void main(String[] args) {
         Owner owner = new Owner();
         Optional<Owner> optionalOwner = Optional.of(owner);
-        String name = optionalOwner.flatMap(Owner::getCar)
+        System.out.println(OptionalTestExecute.getInsuranceName(optionalOwner));
+
+
+    }
+}
+
+class OptionalTestExecute {
+    static String getInsuranceName (Optional<Owner> owner) {
+        return owner.flatMap(Owner::getCar)
                 .flatMap(Car::getInsurance)
                 .map(Insurance::getName)
                 .orElse("Unknown");
-        System.out.println(name);
     }
 }
 
