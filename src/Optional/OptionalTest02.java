@@ -1,33 +1,32 @@
 package Optional;
 
+import java.util.Optional;
+
 public class OptionalTest02 {
     public static void main(String[] args) {
         Owner owner = new Owner();
-        owner.getCar().getInsurance().getName(); // NPE 발생
-        Car car = owner.getCar();
-        if (car != null) {
-            Insurance insurance = car.getInsurance();
-            if (insurance != null) {
-                // 이와 같이 반복 패턴 코드를 '깊은 의심(deep doubt)'라고 표현한다.
-                String name = insurance.getName();
-            }
-        }
+        Optional<Owner> optionalOwner = Optional.of(owner);
+        String name = optionalOwner.flatMap(Owner::getCar)
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknown");
+        System.out.println(name);
     }
 }
 
 class Owner {
     private Car car;
 
-    public Car getCar() {
-        return car;
+    public Optional<Car> getCar() {
+        return Optional.ofNullable(car);
     }
 }
 
 class Car {
     private Insurance insurance;
 
-    public Insurance getInsurance() {
-        return insurance;
+    public Optional<Insurance> getInsurance() {
+        return Optional.ofNullable(insurance);
     }
 }
 
