@@ -1,6 +1,9 @@
 package Optional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public class OptionalTest02 {
     public static void main(String[] args) {
@@ -8,7 +11,12 @@ public class OptionalTest02 {
         Optional<Owner> optionalOwner = Optional.of(owner);
         System.out.println(OptionalTestExecute.getInsuranceName(optionalOwner));
 
+        Map<String, Owner> map01 = new HashMap();
+        Optional<Owner> optionalOwner1 = Optional.ofNullable(map01.get("irene"));
+        System.out.println(optionalOwner1);
+        int age = 1;
 
+        OptionalInt optionalInt = OptionalInt.of(age);
     }
 }
 
